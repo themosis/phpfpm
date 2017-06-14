@@ -29,6 +29,9 @@ RUN pecl install memcached \
 RUN pecl install mongodb \
     && docker-php-ext-enable mongodb
 
+RUN pecl install redis \
+    && docker-php-ext-enable redis
+
 EXPOSE 9000
 
 CMD ["php-fpm"]
