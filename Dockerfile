@@ -32,6 +32,9 @@ RUN pecl install mongodb \
 RUN pecl install redis \
     && docker-php-ext-enable redis
 
+RUN pecl install xdebug \
+    && docker-php-ext-enable xdebug
+
 EXPOSE 9000
 
 CMD ["php-fpm"]
