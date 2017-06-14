@@ -1,6 +1,8 @@
 FROM php:fpm
 
 RUN apt-get update && apt-get install -y \
+        wget \
+        git \
         libjpeg-dev \
         libpng12-dev \
         libfreetype6-dev \
@@ -34,6 +36,10 @@ RUN pecl install redis \
 
 RUN pecl install xdebug \
     && docker-php-ext-enable xdebug
+
+RUN wget -P /tmp https://phar.phpunit.de/phpunit.phar \
+    && chmod +x /tmp/phpunit.phar \
+    && mv /tmp/phpunit.phar /usr/local/bin/phpunit
 
 EXPOSE 9000
 
