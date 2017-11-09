@@ -41,11 +41,6 @@ RUN wget -P /tmp https://phar.phpunit.de/phpunit.phar \
     && chmod +x /tmp/phpunit.phar \
     && mv /tmp/phpunit.phar /usr/local/bin/phpunit
 
-RUN locale-gen fr_FR.UTF-8
-ENV LANG fr_FR.UTF-8  
-ENV LANGUAGE fr_FR:fr  
-ENV LC_ALL fr_FR.UTF-8
-
 EXPOSE 9000
 
 CMD ["php-fpm"]
