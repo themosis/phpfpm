@@ -1,6 +1,7 @@
 FROM php:fpm
 
 RUN apt-get update && apt-get install -y \
+        locales \
         wget \
         git \
         libjpeg-dev \
@@ -16,9 +17,13 @@ RUN apt-get update && apt-get install -y \
         libmemcached-dev \
         pkg-config \
         libssl-dev \
-    && docker-php-ext-install -j$(nproc) bcmath ctype dom iconv mbstring mcrypt mysqli pdo_mysql soap xml xmlrpc sockets zip \
+    && docker-php-ext-install -j$(nproc) bcmath ctype dom gettext iconv mbstring mcrypt mysqli pdo_mysql soap xml xmlrpc sockets zip \
     && docker-php-ext-configure gd --with-freetype-dir=/usr/include/ --with-jpeg-dir=/usr/include/ \
     && docker-php-ext-install -j$(nproc) gd
+
+# The next line uncomment the locale to unable it on your image.
+RUN sed -i -e 's/# fr_FR.UTF-8 UTF-8/fr_FR.UTF-8 UTF-8/' /etc/locale.gen && \
+dpkg-reconfigure --frontend=noninteractive locales
 
 RUN pecl channel-update pecl.php.net
 
